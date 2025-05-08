@@ -1,0 +1,50 @@
+**MCU1 PSEUDOCODE**
+
+START
+	INITIALIZE PIC
+	WHILE MCU IS RUNNING
+		GET input from keypad
+		SEND Input to MCU2 via TX
+END
+
+
+**MCU2 PSEUDOCODE**
+START
+	INITIALIZE PIC
+	INITIALIZE LCD
+	WHILE MCU IS RUNNING
+		RECEIVE data from MCU1 via RX
+		SET FLAGS for getting the first number and the second number
+		CHECK FLAG for first number:
+			IF 0: 
+				store input through for loop until a three digit number is received
+				display number in LCD 
+			IF 1:	
+				proceed
+		END CHECK
+		CHECK FLAG for second number (FLAG for first is 1):
+			IF 0: 
+				store input through for loop until a three digit number is received
+				display number in LCD 
+			IF 1:	
+				proceed
+			
+		END CHECK
+		IF BOTH FLAGS are 1:
+			CHECK IF ADD or MUL:
+				ADD: VAL = 1st + 2nd;
+				MUL: VAL = 1st x 2nd;
+				
+			ENABLE operation flags (ADD_FLAG for ADD/MUL_FLAG for MUL)
+		ENDIF
+		CHECK operation flags (either is 1)
+			DISPLAY VAL in LCD VIA FOR LOOP
+			RESET ALL VALUES AND FLAGS'
+		END CHECK
+	ENDWHILE
+END
+
+	
+
+	
+	
