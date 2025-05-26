@@ -81,6 +81,33 @@ unsigned char I2C_Receive(unsigned char ack){	// DESC: INITIALIZE MASTER RECEIVE
 	return temp;
 }
 
+//SPI FUNCTIONS
+void init_SPI_Master(){
+	TRISC5 = 0; TRISC3 = 0;
+	SSPSTAT = 0x00;	SSPCON = 0x20;
+}
+
+void init_SPI_Slave(){
+	TRISC5 = 0; TRISC3 = 1;
+	SSPSTAT = 0x00;	SSPCON = 0x20;
+}
+
+void SPI_Write(unsigned char data){
+	SSPBUF = data;
+}
+
+char SPI_ReadyRead(){
+	if(SSPSTAT & 0x01) return 1;
+	else return 0;
+}
+
+unsigned char SPI_Read(){
+	while(!BF);
+	unsigned char data = SSPBUF;
+	return data;
+}
+
+
 //NECESSARY FUNCTIONS
 void delay(int cnt){	// DESC: SETS PIC DELAY
 	while(cnt--);
